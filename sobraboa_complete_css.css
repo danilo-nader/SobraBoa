@@ -1,0 +1,1011 @@
+/* ===== RESET E CONFIGURAÇÕES BÁSICAS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #374151;
+    line-height: 1.6;
+}
+
+/* ===== CLASSES UTILITÁRIAS ===== */
+.hidden {
+    display: none !important;
+}
+
+.container {
+    max-width: 448px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.screen {
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid transparent;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-blue {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-blue:hover {
+    background: #1d4ed8;
+}
+
+.btn-gray {
+    background: #6b7280;
+    color: white;
+}
+
+.btn-gray:hover {
+    background: #374151;
+}
+
+.btn-green {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-green:hover {
+    background: #15803d;
+}
+
+.btn-link {
+    background: transparent;
+    color: #6b7280;
+    border: none;
+    padding: 8px 16px;
+}
+
+.btn-link:hover {
+    color: #374151;
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 18px;
+}
+
+/* ===== TELA DE LOGIN ===== */
+#login-screen {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.login-container {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logo-section .logo {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.logo-section h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #16a34a;
+    margin-bottom: 8px;
+}
+
+.logo-section p {
+    color: #6b7280;
+    margin-bottom: 32px;
+    font-size: 16px;
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ===== HEADER ===== */
+#main-header {
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-left .logo {
+    font-size: 24px;
+}
+
+.header-left h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #16a34a;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ===== CARDS E CONTAINERS ===== */
+.card, .welcome-card, .summary-card, .profile-card, .preferences-card, .notifications-card, .day-plan {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    border: 1px solid #f3f4f6;
+}
+
+.welcome-card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.welcome-card p {
+    color: #6b7280;
+    font-size: 16px;
+}
+
+/* ===== DASHBOARD ===== */
+.main-content {
+    padding: 24px 0;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.dashboard-card {
+    background: white;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #d1d5db;
+}
+
+.dashboard-card .card-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.dashboard-card p {
+    font-weight: 600;
+    color: #374151;
+    font-size: 16px;
+}
+
+.summary-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.stat-ok {
+    color: #16a34a;
+}
+
+.stat-warning {
+    color: #d97706;
+}
+
+.stat-expired {
+    color: #dc2626;
+}
+
+/* ===== TELAS ESPECÍFICAS ===== */
+.screen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.screen-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #374151;
+}
+
+/* ===== LISTAS DE ALIMENTOS ===== */
+.foods-list {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #f3f4f6;
+}
+
+.food-item, .expiring-food-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.food-item:last-child, .expiring-food-item:last-child {
+    border-bottom: none;
+}
+
+.food-item:hover, .expiring-food-item:hover {
+    background-color: #f9fafb;
+}
+
+.food-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.food-status-icon {
+    font-size: 16px;
+}
+
+.food-details {
+    flex: 1;
+}
+
+.food-name {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.food-meta, .food-quantity {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 2px;
+}
+
+.food-expiry, .food-status-text {
+    font-size: 12px;
+}
+
+.food-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.food-actions .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.food-actions .btn-icon:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.btn-edit:hover {
+    color: #2563eb;
+    border-color: #2563eb;
+}
+
+.btn-delete:hover {
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+/* ===== RECEITAS ===== */
+.available-ingredients {
+    background: #dbeafe;
+    border: 1px solid #93c5fd;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.available-ingredients p {
+    color: #1e40af;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.recipes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recipe-item {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f3f4f6;
+    transition: all 0.2s ease;
+}
+
+.recipe-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.recipe-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.priority-badge {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.recipe-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.recipe-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.recipe-ingredients {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* ===== PLANEJAMENTO SEMANAL ===== */
+.week-plan {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.day-plan h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #374151;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 8px;
+}
+
+.meals {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.meal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.meal-row:hover {
+    background-color: #f3f4f6;
+    border-color: #e5e7eb;
+}
+
+.meal-label {
+    font-weight: 500;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.meal-value {
+    color: #374151;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-align: right;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.meal-value.empty {
+    color: #9ca3af;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.meal-value:hover {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.meal-value.filled {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* ===== PERFIL ===== */
+.preferences-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #16a34a;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notification-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.toggle {
+    accent-color: #16a34a;
+}
+
+/* ===== NAVEGAÇÃO INFERIOR ===== */
+#bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #6b7280;
+    border-radius: 8px;
+}
+
+.nav-btn:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.nav-btn.active {
+    color: #16a34a;
+    background-color: #f0fdf4;
+}
+
+.nav-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.nav-btn span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ===== MODAIS ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1001;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+/* ===== FORMULÁRIOS ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    background: white;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-control-readonly {
+    background-color: #f9fafb !important;
+    color: #6b7280 !important;
+    cursor: not-allowed;
+}
+
+/* ===== LISTA DE COMPRAS ===== */
+.planned-meals-summary {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+}
+
+.planned-meals-summary h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #166534;
+    margin-bottom: 12px;
+}
+
+#planned-meals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.planned-meal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #374151;
+    padding: 4px 0;
+}
+
+.meal-day-time {
+    font-weight: 500;
+    color: #6b7280;
+    min-width: 120px;
+}
+
+.meal-name {
+    flex: 1;
+    text-align: right;
+}
+
+.shopping-categories {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+}
+
+.shopping-category {
+    margin-bottom: 20px;
+}
+
+.shopping-category:last-child {
+    margin-bottom: 0;
+}
+
+.shopping-category h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shopping-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 8px;
+}
+
+.shopping-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.shopping-item:hover {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.shopping-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #16a34a;
+}
+
+.shopping-item label {
+    flex: 1;
+    margin: 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    transition: all 0.2s ease;
+}
+
+.shopping-item.checked label {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+.shopping-actions {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ===== ESTADOS VAZIOS ===== */
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: #6b7280;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #059669;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1100;
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+    max-width: 300px;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.toast.error {
+    background-color: #dc2626;
+}
+
+.toast.warning {
+    background-color: #d97706;
+}
+
+.toast.info {
+    background-color: #2563eb;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 12px;
+        padding: 20px;
+    }
+    
+    .dashboard-grid {
+        gap: 12px;
+    }
+    
+    .dashboard-card {
+        padding: 16px;
+    }
+    
+    .card, .welcome-card, .summary-card, .profile-card, .preferences-card, .notifications-card, .day-plan {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.screen:not(.hidden) {
+    animation: fadeIn 0.3s ease;
+}
+
+.modal:not(.hidden) {
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    animation: slideIn 0.3s ease;
+}
+
+/* ===== MELHORIAS DE ACESSIBILIDADE ===== */
+.btn:focus,
+.nav-btn:focus,
+.meal-value:focus,
+.modal-close:focus {
+    outline: 2px solid #16a34a;
+    outline-offset: 2px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+/* ===== ESTADOS DE CORES PARA STATUS ===== */
+.text-green-600 { color: #16a34a; }
+.text-yellow-600 { color: #d97706; }
+.text-red-600 { color: #dc2626; }
+.text-gray-600 { color: #6b7280; }
+
+.bg-green-100 { background-color: #dcfce7; }
+.bg-yellow-100 { background-color: #fef3c7; }
+.bg-red-100 { background-color: #fee2e2; }
+.bg-blue-100 { background-color: #dbeafe; }

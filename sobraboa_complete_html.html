@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SobraBoa - Evite o desperdício</title>
+    <style>
+        /* Apenas estilos básicos para estrutura e visibilidade */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; }
+        .hidden { display: none !important; }
+        .container { max-width: 448px; margin: 0 auto; }
+        .screen { min-height: 100vh; }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <div class="logo-section">
+                <div class="logo">🥬</div>
+                <h1>SobraBoa</h1>
+                <p>Vamos juntos evitar o desperdício e cozinhar melhor!</p>
+            </div>
+            
+            <div class="login-buttons">
+                <button id="login-google" class="btn btn-blue">Entrar com Google</button>
+                <button id="login-email" class="btn btn-gray">Entrar com E-mail</button>
+                <button id="create-account" class="btn btn-green">Criar Conta</button>
+                <button id="guest-login" class="btn btn-link">Entrar como visitante</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Principal (visível após login) -->
+    <header id="main-header" class="hidden">
+        <div class="container header-content">
+            <div class="header-left">
+                <span class="logo">🥬</span>
+                <h1>SobraBoa</h1>
+            </div>
+            <div id="expiring-badge" class="badge badge-warning hidden">
+                <span class="alert-icon">⚠️</span>
+                <span id="expiring-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tela Dashboard -->
+    <div id="dashboard-screen" class="screen hidden">
+        <main class="container main-content">
+            <div class="welcome-card">
+                <h2>👋 Olá, <span id="user-name">Danilo</span>!</h2>
+                <p>Que tal usar o seu alface hoje?</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <button class="dashboard-card" data-screen="inventory">
+                    <div class="card-icon">📦</div>
+                    <p>Inventário</p>
+                </button>
+                
+                <button class="dashboard-card" data-screen="expiring">
+                    <div class="card-icon">⚠️</div>
+                    <p>A Vencer</p>
+                </button>
+                
+                <button class="dashboard-card" data-screen="recipes">
+                    <div class="card-icon">🍽️</div>
+                    <p>Receitas</p>
+                </button>
+                
+                <button class="dashboard-card" data-screen="planning">
+                    <div class="card-icon">📅</div>
+                    <p>Planejamento</p>
+                </button>
+            </div>
+
+            <div class="summary-card">
+                <h3>📊 Resumo Rápido</h3>
+                <div class="summary-stats">
+                    <div class="stat-row">
+                        <span>Alimentos salvos:</span>
+                        <span class="stat-value stat-ok" id="foods-ok">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>A vencer:</span>
+                        <span class="stat-value stat-warning" id="foods-warning">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Vencidos:</span>
+                        <span class="stat-value stat-expired" id="foods-expired">0</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Tela Inventário -->
+    <div id="inventory-screen" class="screen hidden">
+        <main class="container main-content">
+            <div class="screen-header">
+                <h2>📦 Inventário</h2>
+                <button id="add-food-btn" class="btn-icon btn-green">
+                    <span>➕</span>
+                </button>
+            </div>
+
+            <div class="foods-list" id="foods-list">
+                <!-- Lista de alimentos será populada via JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Tela Alimentos a Vencer -->
+    <div id="expiring-screen" class="screen hidden">
+        <main class="container main-content">
+            <h2>⏰ Alimentos a Vencer</h2>
+            
+            <div class="foods-list" id="expiring-foods-list">
+                <!-- Lista de alimentos vencendo será populada via JavaScript -->
+            </div>
+
+            <div id="no-expiring-foods" class="empty-state hidden">
+                <p>🎉 Nenhum alimento a vencer!</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Tela Receitas -->
+    <div id="recipes-screen" class="screen hidden">
+        <main class="container main-content">
+            <h2>🍽️ Receitas Disponíveis</h2>
+            
+            <div class="available-ingredients">
+                <p><strong>Ingredientes disponíveis:</strong> <span id="available-ingredients-list"></span></p>
+            </div>
+
+            <div class="recipes-list" id="recipes-list">
+                <!-- Lista de receitas será populada via JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Tela Planejamento -->
+    <div id="planning-screen" class="screen hidden">
+        <main class="container main-content">
+            <h2>📅 Planejamento Semanal</h2>
+            
+            <div class="week-plan">
+                <!-- Segunda-feira -->
+                <div class="day-plan">
+                    <h3>Segunda</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Segunda" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Segunda" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Segunda" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terça-feira -->
+                <div class="day-plan">
+                    <h3>Terça</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Terça" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Terça" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Terça" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarta-feira -->
+                <div class="day-plan">
+                    <h3>Quarta</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Quarta" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Quarta" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Quarta" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quinta-feira -->
+                <div class="day-plan">
+                    <h3>Quinta</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Quinta" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Quinta" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Quinta" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sexta-feira -->
+                <div class="day-plan">
+                    <h3>Sexta</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Sexta" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Sexta" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Sexta" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sábado -->
+                <div class="day-plan">
+                    <h3>Sábado</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Sábado" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Sábado" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Sábado" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domingo -->
+                <div class="day-plan">
+                    <h3>Domingo</h3>
+                    <div class="meals">
+                        <div class="meal-row">
+                            <span class="meal-label">Café da manhã:</span>
+                            <span class="meal-value" data-day="Domingo" data-meal="breakfast" data-meal-label="Café da manhã">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Almoço:</span>
+                            <span class="meal-value" data-day="Domingo" data-meal="lunch" data-meal-label="Almoço">Não planejado</span>
+                        </div>
+                        <div class="meal-row">
+                            <span class="meal-label">Jantar:</span>
+                            <span class="meal-value" data-day="Domingo" data-meal="dinner" data-meal-label="Jantar">Não planejado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão para gerar lista de compras -->
+            <button id="generate-shopping-list" class="btn btn-green btn-full">📋 Gerar Lista de Compras</button>
+        </main>
+    </div>
+
+    <!-- Tela Perfil -->
+    <div id="profile-screen" class="screen hidden">
+        <main class="container main-content">
+            <h2>👤 Meu Perfil</h2>
+            
+            <div class="profile-card">
+                <div class="form-group">
+                    <label for="profile-name">Nome</label>
+                    <input type="text" id="profile-name" value="Danilo">
+                </div>
+                <div class="form-group">
+                    <label for="profile-email">E-mail</label>
+                    <input type="email" id="profile-email" value="danilo@email.com">
+                </div>
+            </div>
+
+            <div class="preferences-card">
+                <h3>🎯 Preferências</h3>
+                <div class="preferences-list">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="pref-vegetarian">
+                        <span>Vegetariano</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="pref-lactose" checked>
+                        <span>Sem lactose</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="pref-quick" checked>
+                        <span>Pouco tempo para cozinhar</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="notifications-card">
+                <h3>🔔 Notificações</h3>
+                <div class="notifications-list">
+                    <div class="notification-row">
+                        <span>Vencimento de alimentos</span>
+                        <input type="checkbox" id="notif-expiry" checked class="toggle">
+                    </div>
+                    <div class="notification-row">
+                        <span>Sugestões de receitas</span>
+                        <input type="checkbox" id="notif-recipes" checked class="toggle">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Navegação Inferior -->
+    <nav id="bottom-nav" class="hidden">
+        <div class="container nav-content">
+            <button class="nav-btn active" data-screen="dashboard">
+                <div class="nav-icon">🏠</div>
+                <span>Início</span>
+            </button>
+            <button class="nav-btn" data-screen="inventory">
+                <div class="nav-icon">📦</div>
+                <span>Inventário</span>
+            </button>
+            <button class="nav-btn" data-screen="recipes">
+                <div class="nav-icon">🍽️</div>
+                <span>Receitas</span>
+            </button>
+            <button class="nav-btn" data-screen="profile">
+                <div class="nav-icon">👤</div>
+                <span>Perfil</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modal Adicionar Alimento -->
+    <div id="add-food-modal" class="modal hidden">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Adicionar Alimento</h3>
+                    <button class="modal-close" id="close-add-modal">✕</button>
+                </div>
+                
+                <form id="add-food-form">
+                    <div class="form-group">
+                        <label for="new-food-name">Nome</label>
+                        <input type="text" id="new-food-name" placeholder="Ex: Banana" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-food-quantity">Quantidade</label>
+                        <input type="text" id="new-food-quantity" placeholder="Ex: 1kg" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-food-expiry">Validade</label>
+                        <input type="date" id="new-food-expiry" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-food-location">Local</label>
+                        <select id="new-food-location">
+                            <option value="geladeira">Geladeira</option>
+                            <option value="freezer">Freezer</option>
+                            <option value="despensa">Despensa</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-green btn-full">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Alimento -->
+    <div id="edit-food-modal" class="modal hidden">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Editar Alimento</h3>
+                    <button class="modal-close" id="close-edit-modal">✕</button>
+                </div>
+                
+                <form id="edit-food-form">
+                    <div class="form-group">
+                        <label for="edit-food-name">Nome</label>
+                        <input type="text" id="edit-food-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-food-quantity">Quantidade</label>
+                        <input type="text" id="edit-food-quantity" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-food-expiry">Validade</label>
+                        <input type="date" id="edit-food-expiry" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-food-location">Local</label>
+                        <select id="edit-food-location">
+                            <option value="geladeira">Geladeira</option>
+                            <option value="freezer">Freezer</option>
+                            <option value="despensa">Despensa</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-blue btn-full">Atualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Refeição -->
+    <div id="edit-meal-modal" class="modal hidden">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Editar Refeição</h3>
+                    <button class="modal-close" id="close-meal-modal">✕</button>
+                </div>
+                
+                <form id="edit-meal-form">
+                    <div class="form-group">
+                        <label for="meal-day">Dia</label>
+                        <input type="text" id="meal-day" readonly class="form-control-readonly">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="meal-type">Refeição</label>
+                        <input type="text" id="meal-type" readonly class="form-control-readonly">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="meal-value">Prato/Receita</label>
+                        <input type="text" id="meal-value" placeholder="Ex: Salada Verde" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-blue btn-full">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lista de Compras -->
+    <div id="shopping-list-modal" class="modal hidden">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📋 Lista de Compras</h3>
+                    <button class="modal-close" id="close-shopping-modal">✕</button>
+                </div>
+                
+                <div id="shopping-list-content">
+                    <div class="planned-meals-summary">
+                        <h4>📝 Refeições Planejadas:</h4>
+                        <div id="planned-meals-list">
+                            <!-- Lista das refeições planejadas será inserida aqui -->
+                        </div>
+                    </div>
+
+                    <div class="shopping-categories">
+                        <div class="shopping-category">
+                            <h4 class="category-title">🥬 Frutas e Verduras</h4>
+                            <div class="shopping-items" id="category-produce">
+                                <!-- Itens de frutas e verduras serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🥛 Laticínios</h4>
+                            <div class="shopping-items" id="category-dairy">
+                                <!-- Itens de laticínios serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🍞 Padaria</h4>
+                            <div class="shopping-items" id="category-bakery">
+                                <!-- Itens de padaria serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🥩 Proteínas</h4>
+                            <div class="shopping-items" id="category-protein">
+                                <!-- Itens de proteínas serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🏪 Despensa</h4>
+                            <div class="shopping-items" id="category-pantry">
+                                <!-- Itens de despensa serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🧊 Congelados</h4>
+                            <div class="shopping-items" id="category-frozen">
+                                <!-- Itens congelados serão inseridos aqui -->
+                            </div>
+                        </div>
+
+                        <div class="shopping-category">
+                            <h4 class="category-title">🧴 Outros</h4>
+                            <div class="shopping-items" id="category-others">
+                                <!-- Outros itens serão inseridos aqui -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="shopping-actions">
+                        <button id="copy-shopping-list" class="btn btn-green btn-full">📱 Copiar Lista</button>
+                        <button id="export-shopping-list" class="btn btn-blue btn-full">📤 Exportar Lista</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates para JavaScript -->
+    <template id="food-item-template">
+        <div class="food-item">
+            <div class="food-info">
+                <span class="food-status-icon">🟢</span>
+                <div class="food-details">
+                    <p class="food-name"></p>
+                    <p class="food-meta"></p>
+                    <p class="food-expiry"></p>
+                </div>
+            </div>
+            <div class="food-actions">
+                <button class="btn-icon btn-edit">✏️</button>
+                <button class="btn-icon btn-delete">🗑️</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="expiring-food-template">
+        <div class="expiring-food-item">
+            <div class="food-info">
+                <span class="food-status-icon">🟡</span>
+                <div class="food-details">
+                    <p class="food-name"></p>
+                    <p class="food-quantity"></p>
+                    <p class="food-status-text"></p>
+                </div>
+            </div>
+            <button class="btn btn-green btn-sm">Ver Receitas</button>
+        </div>
+    </template>
+
+    <template id="recipe-template">
+        <div class="recipe-item">
+            <div class="recipe-header">
+                <h3 class="recipe-name"></h3>
+                <span class="priority-badge hidden">Prioridade</span>
+            </div>
+            <div class="recipe-meta">
+                <span class="recipe-time">⏱️ </span>
+                <span class="recipe-difficulty"></span>
+            </div>
+            <p class="recipe-ingredients"></p>
+        </div>
+    </template>
+
+    <template id="planned-meal-template">
+        <div class="planned-meal-item">
+            <span class="meal-day-time"></span>
+            <span class="meal-name"></span>
+        </div>
+    </template>
+
+    <template id="shopping-item-template">
+        <div class="shopping-item">
+            <span class="item-name"></span>
+        </div>
+    </template>
+
+    <script>
+        // JavaScript básico para navegação será adicionado posteriormente
+        // Por hora, apenas a estrutura HTML está pronta
+        console.log('SobraBoa HTML estruturado e pronto para receber CSS e JavaScript');
+    </script>
+</body>
+</html>
